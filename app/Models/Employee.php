@@ -22,9 +22,9 @@ class Employee extends Model
         'status',
     ];
 
-    public function employee()
+    public function serviceRecords()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->hasMany(ServiceRecord::class);
     }
 }
 

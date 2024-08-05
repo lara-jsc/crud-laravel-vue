@@ -110,6 +110,7 @@ const form = useForm({
                 <InputLabel value="Department" class="block mb-2 text-sm font-medium text-gray-900" />
                 <select v-model="form.department" class="w-full border-gray-300 rounded-md shadow-sm">
                     <option value="" disabled>Select a department</option>
+                    <option value="IT">IT</option>
                     <option value="HR">HR</option>
                     <option value="Engineering">Engineering</option>
                     <option value="Marketing">Marketing</option>

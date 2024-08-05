@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Resources\EmployeeResource;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\Employee;
@@ -10,14 +12,30 @@ use Illuminate\Support\Facades\Redirect;
 class EmployeeController extends Controller
 {
     //
-    public function index(){
-        
-        $all_employees = Employee::all();
+    public function index(Request $request){
 
-        // dd(@$all_employees);
+      
+        $employeeQuery = Employee::query();
+        $this->search($employeeQuery, $request->search);
+
+        $paginated_employees = $employeeQuery->latest()->paginate(10);
+    
         return Inertia::render('Employees/Index/Index', [
-            'all_employees' => $all_employees
+            'all_employees' => $paginated_employees,
+
         ]);
+
+    }
+
+    protected function search($query, $search){
+
+       return $query->when($search, function($query,$search){
+            $query->where('first_name', 'like', '%' .$search. '%')
+            ->orWhere('last_name', 'like', '%' .$search. '%')
+            ->orWhere('email', 'like', '%' .$search. '%');
+
+       });
+
     }
 
     public function create(){
@@ -74,8 +92,8 @@ class EmployeeController extends Controller
         return redirect()->route('employees')->with('message', 'Employee was updated successfully');
     }
 
-        public function delete(Employee $employee){
-            $employee->delete();
-            return redirect()->route('employees')->with('message', 'Employee was deleted successfully');
-        }
+    public function delete(Employee $employee){
+        $employee->delete();
+        return redirect()->route('employees')->with('message', 'Employee was deleted successfully');
+    }
 }

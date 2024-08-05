@@ -7,62 +7,47 @@ import ActionMessage from '@/Components/ActionMessage.vue';
 import { useForm } from '@inertiajs/vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
-const props = defineProps ({
-    all_employees:Array
-});
-
-console.log(props.all_employees);
-
-// const submitForm =()=>{
-//     console.log('form submit')
-    
-//     form.post(route('services.store'), {
-//         preserveScroll: true,
-//     });
-// }
-
-const form = useForm({
-    service_type: '',
-    service_date: '',
-    duration: '',
-    result: '',
-    description: '',
-    notes: '',
-    employee_id: '',
-   
+const props = defineProps({
+    service:Object
 })
 
+const submitForm =()=>{
+    console.log('form submit')
+    
+    form.put(route('services.update', {service: props.service.id}), {
+        preserveScroll: true,
+    });
+}
 
+const form = useForm({
+    service_type: props.service.service_type,
+    service_date: props.service.service_date,
+    duration: props.service.duration,
+    result: props.service.result,
+    description: props.service.description,
+    notes: props.service.notes,
+    employee_id: props.service.employee_id,
+})
 
 </script>
 
-<template> 
+<template>
     <FormSection @submitted="submitForm()">
         <template #title>
                 <div class="text-center pt-5 px-3">
-                    Create Service Record 
+                    Edit Service Record 
                 </div>            
         </template>
 
         <template #description>
             <div class="text-center py-0 px-3">
-                This is where you can create Service Record
+                This is where you can edit Service Record
             </div>
         </template>
       
         <template #form class="">
-            <div class="col-span-3">
-                <InputLabel for="employee" value="Employee" class="block mb-2 text-sm font-medium text-gray-900" />
-                <select id="employee" v-model="form.employee_id" class="w-full border-gray-300 rounded-md shadow-sm">
-                    <option value="" disabled>Select employee</option>
-                    <option v-for="employee in all_employees" :key="employee.id" :value="employee.id">
-                        {{ employee.first_name + ' ' + employee.last_name }}
-                    </option>
-                </select>
-                <InputError :message="form.errors.employee_id" />
-            </div>
             
-            <div class="col-span-4">
+            <div class="col-span-3">
                 <InputLabel value="Service Type" class="block mb-2 text-sm font-medium text-gray-900" />
                 <select v-model="form.service_type" class="w-full border-gray-300 rounded-md shadow-sm">
                     <option value="" disabled>Select service type</option>
@@ -73,16 +58,29 @@ const form = useForm({
                 <InputError :message="form.errors.service_type" />
             </div>
 
-            <div class="col-span-5">
+            <div class="col-span-4">
                 <InputLabel value="Service Date" class="block mb-2 text-sm font-medium text-gray-900" />
                 <input type="date" v-model="form.service_date" class="w-full border-gray-300 rounded-md shadow-sm" />
                 <InputError :message="form.errors.service_date" />
             </div>
 
-            <div class="col-span-6">
+            <div class="col-span-5">
                 <InputLabel value="Duration" class="block mb-2 text-sm font-medium text-gray-900" />
                 <TextInput v-model="form.duration" class="w-full" />
                 <InputError :message="form.errors.duration" />
+            </div>
+
+            <div class="col-span-12">
+                <InputLabel value="Description" class="block mb-2 text-sm font-medium text-gray-900" />
+                <textarea v-model="form.description" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full"></textarea>
+                <InputError :message="form.errors.description" />
+            </div>
+
+
+            <div class="col-span-6">
+                <InputLabel value="Notes" class="block mb-2 text-sm font-medium text-gray-900" />
+                <textarea v-model="form.notes" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full"></textarea>
+                <InputError :message="form.errors.notes" />
             </div>
 
             <div class="col-span-6">
@@ -95,24 +93,12 @@ const form = useForm({
                 </select>
                 <InputError :message="form.errors.result" />
             </div> 
-
-            <div class="col-span-12">
-                <InputLabel value="Description" class="block mb-2 text-sm font-medium text-gray-900" />
-                <TextInput v-model="form.description" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full"></TextInput>
-                <InputError :message="form.errors.description" />
-            </div>
-
-            <div class="col-span-12">
-                <InputLabel value="Notes" class="block mb-2 text-sm font-medium text-gray-900" />
-                <textarea v-model="form.notes" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full"></textarea>
-                <InputError :message="form.errors.notes" />
-            </div>
+            
         </template> 
 
         <template #actions>
-            <ActionMessage class="mr-2" :on="form.recentlySuccessful">Service Record was created successfully</ActionMessage>
-            <PrimaryButton>Create Service</PrimaryButton>
+            <ActionMessage class="mr-2" :on="form.recentlySuccessful">Service Record was updated successfully</ActionMessage>
+            <PrimaryButton>Edit Service</PrimaryButton>
         </template>
     </FormSection>
-
 </template>

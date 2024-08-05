@@ -10,6 +10,7 @@ class ServiceRecord extends Model
     use HasFactory;
 
     protected $fillable = [
+        'employee_id',
         'service_type',
         'service_date',
         'duration',
@@ -18,8 +19,8 @@ class ServiceRecord extends Model
         'notes',
     ];
 
-    public function serviceRecords()
+    public function employee()
     {
-        return $this->hasMany(ServiceRecord::class);
+        return $this->belongsTo(Employee::class);
     }
 }

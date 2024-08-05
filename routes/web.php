@@ -4,10 +4,11 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\SampleController;
 use App\Http\Controllers\ServiceRecordController;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Auth/Login', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -70,5 +71,24 @@ Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified'
     ->post('services/create',[ServiceRecordController::class, 'store'])
     ->name('services.store');
 
+//Service Edit 
+Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified',])
+    ->get('services/edit/{service}',[ServiceRecordController::class, 'edit'])
+    ->name('services.edit');
 
+//Service Update 
+Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified',])
+->put('services/edit/{service}',[ServiceRecordController::class, 'update'])
+->name('services.update');
+
+//Employee Delete
+Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified',])
+    ->delete('services/delete/{employee}',[ServiceRecordController::class, 'delete'])
+    ->name('services.delete');
+
+
+// Sample Index 
+Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified',])
+    ->get('sample',[SampleController::class, 'index'])
+    ->name('sample');
 
