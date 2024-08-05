@@ -11,6 +11,8 @@ const props = defineProps({
     service:Object
 })
 
+console.log(props.service.employee);
+
 const submitForm =()=>{
     console.log('form submit')
     
@@ -27,6 +29,7 @@ const form = useForm({
     description: props.service.description,
     notes: props.service.notes,
     employee_id: props.service.employee_id,
+    
 })
 
 </script>

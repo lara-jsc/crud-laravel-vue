@@ -57,7 +57,6 @@ const deletePost = (id) => {
         });
     }
 };
-
 </script>
 
 <template>

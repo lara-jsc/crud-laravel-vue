@@ -81,14 +81,11 @@ Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified'
 ->put('services/edit/{service}',[ServiceRecordController::class, 'update'])
 ->name('services.update');
 
-//Employee Delete
+//Service Delete
 Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified',])
-    ->delete('services/delete/{employee}',[ServiceRecordController::class, 'delete'])
+    ->delete('services/delete/{service}',[ServiceRecordController::class, 'delete'])
     ->name('services.delete');
 
 
-// Sample Index 
-Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified',])
-    ->get('sample',[SampleController::class, 'index'])
-    ->name('sample');
+
 

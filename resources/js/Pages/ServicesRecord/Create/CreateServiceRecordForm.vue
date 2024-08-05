@@ -13,13 +13,13 @@ const props = defineProps ({
 
 console.log(props.all_employees);
 
-// const submitForm =()=>{
-//     console.log('form submit')
+const submitForm =()=>{
+    console.log('form submit')
     
-//     form.post(route('services.store'), {
-//         preserveScroll: true,
-//     });
-// }
+    form.post(route('services.store'), {
+        preserveScroll: true,
+    });
+}
 
 const form = useForm({
     service_type: '',
