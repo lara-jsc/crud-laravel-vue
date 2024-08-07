@@ -4,7 +4,8 @@ import CreateServiceRecordForm from './CreateServiceRecordForm.vue';
 
 
 const props = defineProps ({
-    all_employees:Array
+    all_employees:Array,
+    all_departments:Object
 });
 
 </script>
@@ -21,7 +22,10 @@ const props = defineProps ({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="px-6 py-3">
-                        <CreateServiceRecordForm :all_employees="all_employees"/>
+                        <CreateServiceRecordForm 
+                        :all_employees="all_employees" 
+                        :all_departments="all_departments"
+                        />                    
                     </div>
                 </div>
             </div>

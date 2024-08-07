@@ -11,10 +11,10 @@ class ServiceRecord extends Model
 
     protected $fillable = [
         'employee_id',
-        'service_type',
-        'service_date',
-        'duration',
-        'result',
+        'date_from',
+        'date_to',
+        'department_id',
+        'position',
         'description',
         'notes',
     ];
@@ -22,5 +22,10 @@ class ServiceRecord extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
     }
 }

@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone_number');
             $table->date('hire_date');
-            $table->string('position');
-            $table->string('department');
             $table->string('status')->default('Active');
             $table->timestamps();
         });

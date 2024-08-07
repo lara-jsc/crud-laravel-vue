@@ -3,11 +3,13 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import EditServiceRecordForm from './EditServiceRecordForm.vue';
 
 const props = defineProps({
-    service:Object
+    service:Object,
+    all_employees:Array,
+    all_departments:Array
 })
 
 // console.log(props.service);
-// console.log(props.service.employee.first_name); 
+console.log(employee.department); 
 </script>
 
 <template>
@@ -22,7 +24,11 @@ const props = defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="px-6 py-4">
-                        <EditServiceRecordForm :service="service" />
+                        <EditServiceRecordForm 
+                        :service="service" 
+                        :all_employees="all_employees"
+                        :all_departments="all_departments"
+                        />
                     </div>
                 </div>
             </div>

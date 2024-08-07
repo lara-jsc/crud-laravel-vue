@@ -8,7 +8,9 @@ import { useForm } from '@inertiajs/vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const props = defineProps({
-    service:Object
+    service:Object,
+    all_employees:Array,
+    all_departments:Array 
 })
 
 console.log(props.service.employee);
@@ -22,14 +24,14 @@ const submitForm =()=>{
 }
 
 const form = useForm({
-    service_type: props.service.service_type,
-    service_date: props.service.service_date,
-    duration: props.service.duration,
-    result: props.service.result,
+
+    date_from: props.service.date_from,
+    date_to: props.service.date_to,
     description: props.service.description,
     notes: props.service.notes,
     employee_id: props.service.employee_id,
-    
+    position: props.service.position,
+    department_id: props.service.department_id,
 })
 
 </script>
@@ -50,28 +52,53 @@ const form = useForm({
       
         <template #form class="">
             
-            <div class="col-span-3">
-                <InputLabel value="Service Type" class="block mb-2 text-sm font-medium text-gray-900" />
-                <select v-model="form.service_type" class="w-full border-gray-300 rounded-md shadow-sm">
-                    <option value="" disabled>Select service type</option>
-                    <option value="Type 1">Type 1</option>
-                    <option value="Type 2">Type 2</option>
-                    <option value="Type 3">Type 3</option>
+            <div class="col-span-4">
+                <InputLabel for="employee" value="Employee" class="block mb-2 text-sm font-medium text-gray-900" />
+                <select id="employee" v-model="form.employee_id" class="w-full border-gray-300 rounded-md shadow-sm">
+                    <option value="" disabled>Select employee</option>
+                    <option v-for="employee in all_employees" :key="employee.id" :value="employee.id">
+                        {{ employee.first_name + ' ' + employee.last_name }}
+                    </option>
                 </select>
-                <InputError :message="form.errors.service_type" />
+                <InputError :message="form.errors.employee_id" />
+            </div>
+
+              <div class="col-span-4">
+                <InputLabel value="Position" class="block mb-2 text-sm font-medium text-gray-900" />
+                <select v-model="form.position" class="w-full border-gray-300 rounded-md shadow-sm">
+                    <option value="" disabled>Select a position</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Developer">Developer</option>
+                    <option value="Designer">Designer</option>
+                </select>
+                <InputError :message="form.errors.position" />
+            </div>
+
+            <div class="col-span-4">
+                <InputLabel for="department" value="Department" class="block mb-2 text-sm font-medium text-gray-900" />
+                <select id="department" v-model="form.department_id" class="w-full border-gray-300 rounded-md shadow-sm">
+                    <option value="" disabled>Select employee</option>
+                    <option v-for="department in all_departments" :key="department.id" :value="department.id">
+                        {{ department.name }}
+                    </option>
+                </select>
+                <InputError :message="form.errors.department_id" />
             </div>
 
             <div class="col-span-4">
                 <InputLabel value="Service Date" class="block mb-2 text-sm font-medium text-gray-900" />
-                <input type="date" v-model="form.service_date" class="w-full border-gray-300 rounded-md shadow-sm" />
-                <InputError :message="form.errors.service_date" />
+                <input type="date" v-model="form.date_from" class="w-full border-gray-300 rounded-md shadow-sm" />
+                <InputError :message="form.errors.date_from" />
             </div>
 
-            <div class="col-span-5">
-                <InputLabel value="Duration" class="block mb-2 text-sm font-medium text-gray-900" />
-                <TextInput v-model="form.duration" class="w-full" />
-                <InputError :message="form.errors.duration" />
+
+            <div class="col-span-4">
+                <InputLabel value="Service Date" class="block mb-2 text-sm font-medium text-gray-900" />
+                <input type="date" v-model="form.date_to" class="w-full border-gray-300 rounded-md shadow-sm" />
+                <InputError :message="form.errors.date_to" />
             </div>
+
+       
 
             <div class="col-span-12">
                 <InputLabel value="Description" class="block mb-2 text-sm font-medium text-gray-900" />
@@ -86,16 +113,7 @@ const form = useForm({
                 <InputError :message="form.errors.notes" />
             </div>
 
-            <div class="col-span-6">
-                <InputLabel value="Result" class="block mb-2 text-sm font-medium text-gray-900" />
-                <select v-model="form.result" class="w-full border-gray-300 rounded-md shadow-sm">
-                    <option value="" disabled>Select a result</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Completed">Completed</option>
-                    <option value="In Progress">In Progress</option>
-                </select>
-                <InputError :message="form.errors.result" />
-            </div> 
+        
             
         </template> 
 

@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('service_records', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
-            $table->date('service_date');
-            $table->string('service_type');
+            $table->foreignId('employee_id')
+			      ->constrained()
+			      ->onDelete('cascade');
+            $table->foreignId('department_id')
+                  ->constrained()
+                  ->onDelete('cascade');
+            $table->string('position');
+            $table->date('date_from');
+            $table->date('date_to');
             $table->text('description')->nullable();
-            $table->integer('duration')->nullable(); 
-            $table->string('result')->default('Pending');
             $table->text('notes')->nullable();
             $table->timestamps();
         });

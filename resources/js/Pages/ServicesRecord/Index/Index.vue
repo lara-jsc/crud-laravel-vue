@@ -17,6 +17,8 @@ const props = defineProps ({
         })
     }
 });
+
+console.log(props.all_service_record.department);
 const paginationData = ref(props.all_service_record);
 
 let search =ref(""), pageNumber =ref(1);
@@ -40,7 +42,6 @@ watch( () => serviceUrl.value,
             replace:true
         });
     }
-
 )
 
 
@@ -68,7 +69,6 @@ const deletePost = (id) => {
         </template>
 
         <div class="py-12">
-            
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between">
                     <div class="relative mt-1">
@@ -99,13 +99,21 @@ const deletePost = (id) => {
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
-                                   
+
                                     <th scope="col" class="px-6 py-3">
-                                        Service type
+                                        Department
                                     </th>
 
                                     <th scope="col" class="px-6 py-3">
-                                        Service date
+                                        Posistion
+                                    </th>
+                                   
+                                    <th scope="col" class="px-6 py-3">
+                                        Date from
+                                    </th>
+
+                                    <th scope="col" class="px-6 py-3">
+                                        Date to
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         <div class="flex items-center">
@@ -116,10 +124,6 @@ const deletePost = (id) => {
                                         </div>
                                     </th>
 
-                                    <th scope="col" class="px-6 py-3">
-                                        Duration
-                                    </th>
-                                
                             
                                     <th scope="col" class="px-6 py-3">
                                         <div class="flex items-center">
@@ -130,10 +134,7 @@ const deletePost = (id) => {
                                         </div>
                                     </th>
 
-                                    <th scope="col" class="px-6 py-3">
-                                        Result
-                                    </th>  
-                            
+                                 
                                     <th scope="col" class="px-6 py-3">
                                         <span class="sr-only">Edit</span>
                                     </th>
@@ -147,11 +148,19 @@ const deletePost = (id) => {
                                 <tr v-for="service in all_service_record.data" :key="service.id" class="bg-white border-b dark:bg-white-800 dark:border-white-700">
                                    
                                     <td class="px-6 py-4">
-                                        {{  service.service_type }}
+                                        {{ service.department.name }}
                                     </td>
 
                                     <td class="px-6 py-4">
-                                        {{ service.service_date}}
+                                        {{ service.position}}
+                                    </td> 
+
+                                    <td class="px-6 py-4">
+                                        {{  service.date_from }}
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        {{ service.date_to}}
                                     </td> 
 
                                     <td class="px-6 py-4">
@@ -159,17 +168,8 @@ const deletePost = (id) => {
                                     </td>
 
                                     <td class="px-6 py-4">
-                                        {{ service.duration }}
-                                    </td>
-
-                                    <td class="px-6 py-4">
                                         {{ service.notes }}
                                     </td>
-
-                                    <td class="px-6 py-4">
-                                        {{ service.result }}
-                                    </td>
-
 
                                     <td class="px-6 py-4 text-right">
                             
@@ -184,7 +184,6 @@ const deletePost = (id) => {
                                             Delete
                                         </button>
                                     </td>
-
                                 </tr>
                             </tbody>
                         </table>

@@ -12,17 +12,18 @@ use Illuminate\Support\Facades\Redirect;
 class EmployeeController extends Controller
 {
     //
-    public function index(Request $request){
-
-      
-        $employeeQuery = Employee::query();
+    public function index(Request $request){      
+        $employeeQuery = Employee::query()->with('latestServiceRecord');
         $this->search($employeeQuery, $request->search);
 
+        foreach ($employeeQuery->get() as $employee) {
+            // dd($employee->department);
+        }
+
         $paginated_employees = $employeeQuery->latest()->paginate(10);
-    
+
         return Inertia::render('Employees/Index/Index', [
             'all_employees' => $paginated_employees,
-
         ]);
 
     }
@@ -35,7 +36,6 @@ class EmployeeController extends Controller
             ->orWhere('email', 'like', '%' .$search. '%');
 
        });
-
     }
 
     public function create(){
@@ -52,8 +52,8 @@ class EmployeeController extends Controller
             'email' => 'required|email|unique:users,email', 
             'phone_number' => 'required|string|max:15',  
             'hire_date' => 'required|date',  
-            'position' => 'required|string|max:100',
-            'department' => 'required|string|max:100', 
+            // 'position' => 'required|string|max:100',
+            // 'department' => 'required|string|max:100', 
             'status' => 'required|string|max:20', 
         ]);
 
@@ -81,8 +81,8 @@ class EmployeeController extends Controller
             'email' => 'required|email|unique:users,email', 
             'phone_number' => 'required|string|max:15',  
             'hire_date' => 'required|date',  
-            'position' => 'required|string|max:255',
-            'department' => 'required|string|max:255', 
+            // 'position' => 'required|string|max:255',
+            // 'department' => 'required|string|max:255', 
             'status' => 'required|string|max:20', 
 
         ]);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -86,6 +87,34 @@ Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified'
     ->delete('services/delete/{service}',[ServiceRecordController::class, 'delete'])
     ->name('services.delete');
 
+// Department Index 
+Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified',])
+    ->get('department',[DepartmentController::class, 'index'])
+    ->name('department');
 
 
+//Department Create
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])
+    ->get('department/create', [DepartmentController::class, 'create'])
+    ->name('department.create');
 
+//Department Store
+Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified',])
+    ->post('department/create',[DepartmentController::class, 'store'])
+    ->name('department.store');
+
+
+//Department Edit 
+Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified',])
+    ->get('department/edit/{department}',[DepartmentController::class, 'edit'])
+    ->name('department.edit');
+
+//Service Update 
+Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified',])
+->put('department/edit/{department}',[DepartmentController::class, 'update'])
+->name('department.update');
+
+//Service Delete
+Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified',])
+    ->delete('department/delete/{department}',[DepartmentController::class, 'delete'])
+    ->name('department.delete');

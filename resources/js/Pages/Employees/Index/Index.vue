@@ -67,11 +67,8 @@ const deletePost = (id) => {
         </template>
 
         <div class="py-12">
-
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        
                 <div class="flex items-center justify-between">
-
                     <div class="relative mt-1">
                         <label for="table-search" class="sr-only">Search</label>
                         <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -94,9 +91,6 @@ const deletePost = (id) => {
                         </Link>
                     </div>
                 </div>
-                
-
-      
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -130,7 +124,6 @@ const deletePost = (id) => {
                     </svg></a>
                                         </div>
                                     </th>
-
 
                                           <th scope="col" class="px-6 py-3">
                                         <div class="flex items-center">
@@ -178,9 +171,8 @@ const deletePost = (id) => {
                                     </td>
 
                                     <td class="px-6 py-4">
-                                        {{ employee.position }}
+                                        <!-- {{ employee.position }} -->
                                     </td>
-
 
                                     <td class="px-6 py-4">
                                         {{ employee.department }}
@@ -206,8 +198,6 @@ const deletePost = (id) => {
                         </table>
                     </div>
                 </div>
-         
-
                 <Pagination :pagination="paginationData"/>
             </div>
         </div>

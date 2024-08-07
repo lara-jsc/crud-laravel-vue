@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Department;
 use App\Models\ServiceRecord;
 use App\Models\Employee;
 use Inertia\Inertia;
@@ -10,13 +12,14 @@ class ServiceRecordController extends Controller
 {
     //
     public function index(Request $request){
-    
-
-        $serviceQuery = ServiceRecord::query();
+        $serviceQuery = ServiceRecord::query()->with('department');
         $this->search($serviceQuery, $request->search);
 
-        $paginated_service = $serviceQuery->latest()->paginate(10);
     
+
+        $paginated_service = $serviceQuery
+            ->latest()
+            ->paginate(10);
         return Inertia::render('ServicesRecord/Index/Index', [
             'all_service_record' => $paginated_service,
 
@@ -26,7 +29,7 @@ class ServiceRecordController extends Controller
     protected function search($query, $search){
 
         return $query->when($search, function($query,$search){
-             $query->where('service_type', 'like', '%' .$search. '%');
+             $query->where('position', 'like', '%' .$search. '%');
             //  ->orWhere('last_name', 'like', '%' .$search. '%')
         });
  
@@ -34,25 +37,22 @@ class ServiceRecordController extends Controller
 
     public function create(){
         $all_employees = Employee::all();
-        // dd([
-        //     'all_employees' => $all_employees
-        // ]);
+        $all_departments = Department::all();
         return Inertia::render('ServicesRecord/Create/Index',[
-            'all_employees' => $all_employees
+            'all_employees' => $all_employees, 'all_departments' => $all_departments
         ]);
     }
 
     public function store(Request $request){
-            // dd($request);
-        // exists:employees,id
+         
         $validated=$request->validate([
             'employee_id' => 'required|exists:employees,id',
-            'service_date' => 'required|date',
-            'service_type' => 'required|string',
+            'department_id' => 'required|exists:departments,id',
+            'date_from' => 'required|date',
+            'date_to' => 'required|date',
             'description' => 'nullable|string',
-            'duration' => 'nullable|integer',
-            'result' => 'nullable|string',
             'notes' => 'nullable|string',
+            'position' => 'required|string',
         ]);
 
         $user_id = $request->user()->id;
@@ -66,23 +66,28 @@ class ServiceRecordController extends Controller
     }
 
     public function edit(ServiceRecord $service){
-        
-        $service->load('employee');
+        $service = $service->load('employee', 'department');
 
-        return Inertia::render('ServicesRecord/Edit/Index',[
-            'service' => $service
+        $all_employees = Employee::all();
+        
+        $all_departments = Department::all();
+    
+        return Inertia::render('ServicesRecord/Edit/Index', [
+            'service' => $service,
+            'all_employees' => $all_employees,
+            'all_departments' => $all_departments,
         ]);
     }
 
     public function update(ServiceRecord $service, Request $request){
         $validated=$request->validate([
             'employee_id' => 'required|exists:employees,id',
-            'service_date' => 'required|date',
-            'service_type' => 'required|string',
+            'department_id' => 'required|exists:departments,id',
+            'date_from' => 'required|date',
+            'date_to' => 'required|date',
             'description' => 'nullable|string',
-            'duration' => 'nullable|integer',
-            'result' => 'nullable|string',
             'notes' => 'nullable|string',
+            'position' => 'required|string',
         ]);
 
         $service->update($validated);
