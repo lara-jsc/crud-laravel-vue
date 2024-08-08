@@ -7,7 +7,7 @@ import ActionMessage from '@/Components/ActionMessage.vue';
 import { useForm } from '@inertiajs/vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
-const props =defineProps({
+const props = defineProps({
     employee:Object
 })
 const submitForm =()=>{
@@ -20,11 +20,11 @@ const submitForm =()=>{
 const form = useForm({
     first_name: props.employee.first_name,
     last_name: props.employee.last_name,
-    // department: props.employee.department,
+    department: props.employee.department,
     email: props.employee.email,
     hire_date: props.employee.hire_date,
     phone_number: props.employee.phone_number,
-    // position: props.employee.position,
+    position: props.employee.position,
     status: props.employee.status,
 })
 
@@ -87,7 +87,7 @@ const form = useForm({
             </div>
         
             <!-- Position dropdown -->
-            <!-- <div class="col-span-4">
+            <div class="col-span-4">
                 <InputLabel value="Position" class="block mb-2 text-sm font-medium text-gray-900" />
                 <select v-model="form.position" class="w-full border-gray-300 rounded-md shadow-sm">
                     <option value="" disabled>Select a position</option>
@@ -96,10 +96,10 @@ const form = useForm({
                     <option value="Designer">Designer</option>
                 </select>
                 <InputError :message="form.errors.position" />
-            </div> -->
+            </div>
         
             <!-- Department dropdown -->
-            <!-- <div class="col-span-8">
+            <div class="col-span-8">
                 <InputLabel value="Department" class="block mb-2 text-sm font-medium text-gray-900" />
                 <select v-model="form.department" class="w-full border-gray-300 rounded-md shadow-sm">
                     <option value="" disabled>Select a department</option>
@@ -108,7 +108,7 @@ const form = useForm({
                     <option value="Marketing">Marketing</option>
                 </select>
                 <InputError :message="form.errors.department" />
-            </div> -->
+            </div>
         </template> 
      
         <template #actions>

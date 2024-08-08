@@ -9,7 +9,7 @@ const props = defineProps({
 })
 
 // console.log(props.service);
-console.log(employee.department); 
+console.log(props.all_employee); 
 </script>
 
 <template>

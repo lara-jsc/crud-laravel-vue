@@ -12,8 +12,6 @@ const props = defineProps ({
     all_departments:Object 
 });
 
-// console.log(props.all_employees);
-// console.log(props.all_departments);
 
 const submitForm =()=>{
     console.log('form submit')
@@ -58,7 +56,7 @@ const form = useForm({
                 <select id="employee" v-model="form.employee_id" class="w-full border-gray-300 rounded-md shadow-sm">
                     <option value="" disabled>Select employee</option>
                     <option v-for="employee in all_employees" :key="employee.id" :value="employee.id">
-                        {{ employee.first_name + ' ' + employee.last_name }}
+                        {{ employee.full_name }}
                     </option>
                 </select>
                 <InputError :message="form.errors.employee_id" />

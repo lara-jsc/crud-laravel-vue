@@ -66,10 +66,10 @@ class ServiceRecordController extends Controller
     }
 
     public function edit(ServiceRecord $service){
-        $service = $service->load('employee', 'department');
+        $service = ServiceRecord::with('employee', 'department')->findOrFail($service->id);
 
+        // Retrieve all employees and departments
         $all_employees = Employee::all();
-        
         $all_departments = Department::all();
     
         return Inertia::render('ServicesRecord/Edit/Index', [
