@@ -171,7 +171,7 @@ const deletePost = (id) => {
                                     </td>
 
                                     <td class="px-6 py-4">
-                                        {{ employee.latest_service_record.position }}
+                                        {{ employee.position }}
 
                                     </td>
 

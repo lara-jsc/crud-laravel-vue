@@ -14,7 +14,7 @@ class EmployeeController extends Controller
     //
     public function index(Request $request){      
         $employeeQuery = Employee::query()
-            ->with('latestServiceRecord.department');
+            ->with('latestServiceRecord');
         $this->search($employeeQuery, $request->search);
 
         // foreach ($employeeQuery->get() as $employee) {
