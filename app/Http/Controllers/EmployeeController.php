@@ -13,12 +13,13 @@ class EmployeeController extends Controller
 {
     //
     public function index(Request $request){      
-        $employeeQuery = Employee::query()->with('latestServiceRecord');
+        $employeeQuery = Employee::query()
+            ->with('latestServiceRecord.department');
         $this->search($employeeQuery, $request->search);
 
-        foreach ($employeeQuery->get() as $employee) {
-            // dd($employee->department);
-        }
+        // foreach ($employeeQuery->get() as $employee) {
+            // dd($employeeQuery->department);
+        // }
 
         $paginated_employees = $employeeQuery->latest()->paginate(10);
 

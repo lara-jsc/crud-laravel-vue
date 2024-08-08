@@ -10,6 +10,8 @@ class Employee extends Model
 {
     use HasFactory;
 
+    protected $appends = ['full_name', 'department', 'position'];
+
     protected $fillable = [
         'user_id', 
         'first_name',
@@ -33,6 +35,21 @@ class Employee extends Model
     {
         return Attribute::make(
             get : fn() => $this->latestServiceRecord->department->name
+        );
+    }
+
+    protected function position() : Attribute
+    {
+        return Attribute::make(
+            get : fn() => $this->latestServiceRecord->position
+        );
+    }
+
+
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->first_name . ' ' . $this->last_name,
         );
     }
 }

@@ -156,7 +156,7 @@ const deletePost = (id) => {
                             <tbody>
                                 <tr v-for="employee in all_employees.data" :key="employee.id" class="bg-white border-b dark:bg-white-800 dark:border-white-700">
                                     <th scope="row" class="px-6 py-4">
-                                        {{ employee.first_name + ' ' + employee.last_name }}
+                                        {{ employee.full_name}}
                                     </th>
                                     <td class="px-6 py-4">
                                         {{ employee.email }}
@@ -171,11 +171,13 @@ const deletePost = (id) => {
                                     </td>
 
                                     <td class="px-6 py-4">
-                                        <!-- {{ employee.position }} -->
+                                        {{ employee.latest_service_record.position }}
+
                                     </td>
 
                                     <td class="px-6 py-4">
-                                        {{ employee.department }}
+                                        {{ employee.department}}
+
                                     </td>
 
                                     <td class="px-6 py-4">

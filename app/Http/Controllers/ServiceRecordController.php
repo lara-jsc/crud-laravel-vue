@@ -12,7 +12,7 @@ class ServiceRecordController extends Controller
 {
     //
     public function index(Request $request){
-        $serviceQuery = ServiceRecord::query()->with('department');
+        $serviceQuery = ServiceRecord::query()->with('department', 'employee');
         $this->search($serviceQuery, $request->search);
 
     
